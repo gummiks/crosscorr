@@ -1,14 +1,20 @@
 import numpy as np
+import os
+import airtovac
+import astropy.constants as aconst
+
+MASKDIR = os.path.join(os.path.dirname(__file__),"data","harps","masks")
+G2MASK = os.path.join(MASKDIR,"G2.mas")
 
 class Mask:
-    def __init__(self, file='data/harps/masks/G2.mas',constant_v=False,disp=1.):
+    def __init__(self,filename=G2MASK,constant_v=False,disp=1.):
         """
         A simple mask class.
 
         Reads in a .mas file that has the following columns:
          left    right     weights
         """
-        self.wi, self.wf, self.weight = np.loadtxt(file,unpack=True,dtype=np.float64)
+        self.wi, self.wf, self.weight = np.loadtxt(filename,unpack=True,dtype=np.float64)
         self.wi = airtovac.airtovac(self.wi)
         self.wf = airtovac.airtovac(self.wf)
         self.wmid = 0.5*(self.wi+self.wf)
