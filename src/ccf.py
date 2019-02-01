@@ -71,8 +71,8 @@ def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],pl
     Loop through and Calculate CCFs for all HPF orders
     
     INPUT:
-        w - wavelength
-        f - flux for that wavelength array
+        w - wavelength matrix (of 28 orders)
+        f - flux matrix for that wavelength array (of 28 orders)
         M - mask object
         berv - barycentric correction
         orders = orders to calculate. If only using a subset of 28 orders then the CCF for other orders will be 0s
@@ -80,14 +80,11 @@ def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],pl
     OUTPUT:
         An array the size of (len(v),28) with CCF
         
-    NOTES:
-        Need to fix berv+82
-    
     EXAMPLE:
         M = mask.Mask(filename="0_MASKS/20190124_gj699/tellmask/all.mas",disp=2.,constant_v=True)
         v = np.linspace(-15,15,161)
         orders = [5]#[3,4,5,6],14,15,16,17
-        c = calculate_ccf_for_hpf_orders(sp.S.w,sp.S.f,v,M,sp.S.berv,orders=orders,plot=True,ax=ax)
+        c = calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=orders,plot=True)
     """
     num_hpf_orders = 28
     N = len(orders)
