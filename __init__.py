@@ -1,2 +1,1 @@
-import ccf
-import mask
+from .src import *
