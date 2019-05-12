@@ -66,7 +66,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
             return np.zeros(len(v))
 
 
-def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],plot=False,ax=None,color=None):
+def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],plot=False,ax=None,color=None,subslice=None):
     """
     Loop through and Calculate CCFs for all HPF orders
     
