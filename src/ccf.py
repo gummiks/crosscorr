@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
-		  wavel_clip_edges=2.,doppler_3d=True,verbose=True):
+		  wavel_clip_edges=0.,doppler_3d=True,verbose=True):
     """
     Calculate a weighted binary mask CCF.
 
@@ -25,9 +25,13 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     NOTES:
         - Uses the CCF fortran algorithm in CERES. Super fast.
         - Note that that algorithm uses the 1d Doppler EQ.
+        - wavel_clip_edges # THE LAST ARGUMENT CHANGES GJ 905 FROM -75.8 to -77.8km/s
     """
     N = len(v)
     ccf = np.zeros(N)
+    mm = np.isfinite(f)
+    w = w[mm]
+    f = f[mm]
     II = np.where( (mask_l > wavel_clip_edges+w.min()) & (mask_h < w.max()-wavel_clip_edges))
 
     # This is an additional scaling parameter in the CERES CCF generation, we don't need that so set to 1
@@ -101,4 +105,7 @@ def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],pl
     ccf_array[num_hpf_orders] = np.nansum(ccf_array[orders],axis=0)
     if plot: 
         ax.legend(loc="lower right",fontsize=10)
+        ax.set_xlabel('v [km/s]')
+        ax.set_ylabel('Normalized flux')
+        ax.set_title('CCF')
     return ccf_array
