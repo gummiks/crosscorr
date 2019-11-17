@@ -21,3 +21,6 @@ On mac you might need to try sudo (verified that this works on my mac).
 > sudo f2py -c -m CCF_3d CCF_3d.f
 
 > sudo f2py -c -m CCF_pix CCF_pix.f
+
+## Then, install as a normal package
+> pip install ccf/
