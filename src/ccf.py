@@ -1,9 +1,12 @@
-import CCF_1d, CCF_3d
+#from .CCF_1d import CCF_1d
+#from .CCF_3d import CCF_3d
+#import CCF_1d, CCF_3d
+from . import CCF_1d, CCF_3d
 import numpy as np
 import matplotlib.pyplot as plt
 
 def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
-		  wavel_clip_edges=0.,doppler_3d=True,verbose=True):
+                  wavel_clip_edges=0.,doppler_3d=True,verbose=True):
     """
     Calculate a weighted binary mask CCF.
 
@@ -16,7 +19,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
         mask_w - weight of binary mask
         berv - barycentric velocity in km/s
         wavel_clip_edges - do not use lines that are this close to the edge of the order
-	doppler_3d - use 3d doppler shifting formula ? If false, default to 1D formula
+        doppler_3d - use 3d doppler shifting formula ? If false, default to 1D formula
         verbose: print diagnostics
 
     OUTPUT:
@@ -47,7 +50,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
                                     mask_w[II],
                                     sn, # Additional SNR scaling factor, just setting to 1
                                     v[k],
-            		            berv,
+                                    berv,
                                     0.) # Additional velocity that is not needed
             return ccf
         except Exception as e:

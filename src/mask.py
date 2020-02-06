@@ -1,7 +1,8 @@
 from __future__ import print_function
 import numpy as np
 import os
-import airtovac
+from . import airtovac
+#from .airtovac import airtovac
 import astropy.constants as aconst
 
 HARPSMASKDIR = os.path.join(os.path.dirname(__file__),"..","data","harps","masks")
@@ -37,7 +38,7 @@ class Mask:
         """
         print("AIRTOVAC (TRUE for HARPS, FALSE TRUE HPF): ",use_airtovac)
         self.wi, self.wf, self.weight = np.loadtxt(filename,unpack=True,dtype=np.float64)
-	if use_airtovac:
+        if use_airtovac:
             self.wi = airtovac.airtovac(self.wi)
             self.wf = airtovac.airtovac(self.wf)
         self.wmid = 0.5*(self.wi+self.wf)
