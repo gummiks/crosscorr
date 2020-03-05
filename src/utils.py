@@ -29,7 +29,7 @@ def ccf_mask_combine(filenames,outname='',shift_to_stellarframe=True,rv=0.,targe
     if shift_to_stellarframe:
         if targetname!="":
             print('Querying target {}'.format(targetname))
-	    rv  = barycorrpy.get_stellar_data(targetname)[0]['rv']/1000.
+            rv  = barycorrpy.get_stellar_data(targetname)[0]['rv']/1000.
             #target = targ.getServalTarget(targetname)
             #rv = target.rv
         print('Shifting to stellar restframe using RV={}km/s'.format(rv))
@@ -45,7 +45,7 @@ def ccf_mask_combine(filenames,outname='',shift_to_stellarframe=True,rv=0.,targe
             savename = os.path.join(dirname,'0_COMBINED','combined_barycentricframe.mas')
     savedir = os.path.dirname(os.path.abspath(savename))
     try:
-    	os.makedirs(savedir)
+        os.makedirs(savedir)
         print('Made directory {}'.format(savedir))
     except Exception as e:
         print('Skipping creating directory {}'.format(savedir))
