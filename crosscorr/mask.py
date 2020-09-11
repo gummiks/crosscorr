@@ -1,9 +1,11 @@
 from __future__ import print_function
 import numpy as np
 import os
-#from . import airtovac
+try:
+    from . import airtovac
+except Exception:
+    import airtovac
 #from .airtovac import airtovac
-import airtovac
 import astropy.constants as aconst
 
 HARPSMASKDIR = os.path.join(os.path.dirname(__file__),"..","data","harps","masks")
