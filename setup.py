@@ -12,7 +12,6 @@ def readme():
 CCF_1d = Extension('_CCF_1d', sources=['crosscorr/CCF_1d.f']) 
 CCF_3d = Extension('_CCF_3d', sources=['crosscorr/CCF_3d.f']) 
 
-
 setup(name='crosscorr',
       version='0.1.0',
       description='Calculate Binary Cross Correlation Functions',
@@ -26,5 +25,8 @@ setup(name='crosscorr',
       classifiers=['Topic :: Scientific/Engineering :: Astronomy'],
       keywords='Spectra Astronomy',
       include_package_data=True,
-      ext_modules=[CCF_1d, CCF_3d]
+      ext_modules=[CCF_1d, CCF_3d],
+      # NOTE: Manifest.in doees not seem to work with numpy.distutils.core
+      data_files=[('crosscorr/data/harps/masks',['crosscorr/data/harps/masks/G2.mas']),
+                  ('crosscorr/data/hpf/masks',['crosscorr/data/hpf/masks/gj699_combined_stellarframe.mas'])],
       )

@@ -8,9 +8,10 @@ except Exception:
 #from .airtovac import airtovac
 import astropy.constants as aconst
 
-HARPSMASKDIR = os.path.join(os.path.dirname(__file__),"..","data","harps","masks")
-HPFMASKDIR = os.path.join(os.path.dirname(__file__),"..","data","hpf","masks")
+HARPSMASKDIR = os.path.join(os.path.dirname(__file__),"data","harps","masks")
+HPFMASKDIR = os.path.join(os.path.dirname(__file__),"data","hpf","masks")
 G2MASK = os.path.join(HARPSMASKDIR,"G2.mas")
+HPFGJ699MASK = os.path.join(HPFMASKDIR,'gj699_combined_stellarframe.mas')
 
 class Mask:
     def __init__(self,filename=G2MASK,constant_v=True,disp=2.,use_airtovac=False):
