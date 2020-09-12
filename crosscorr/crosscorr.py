@@ -1,8 +1,9 @@
 #from .CCF_1d import CCF_1d
 #from .CCF_3d import CCF_3d
 #import CCF_1d, CCF_3d
-from . import CCF_1d, CCF_3d
-#import CCF_1d, CCF_3d
+#from . import CCF_1d, CCF_3d
+# We don't need to do relative import as these are extensions as part of setup.py
+import _CCF_1d, _CCF_3d
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -44,7 +45,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     if doppler_3d:
         try:
             for k in range(N):
-                ccf[k] = CCF_3d.ccf(mask_l[II], 
+                ccf[k] = _CCF_3d.ccf(mask_l[II], 
                                     mask_h[II], 
                                     w,
                                     f,
@@ -60,7 +61,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     else:
         try:
             for k in range(N):
-                ccf[k] = CCF_1d.ccf(mask_l[II], 
+                ccf[k] = _CCF_1d.ccf(mask_l[II], 
                                     mask_h[II], 
                                     w,
                                     f,
