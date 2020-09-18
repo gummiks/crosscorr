@@ -2,7 +2,7 @@
 
 > git clone git@github.com:gummiks/crosscorr.git
 
-> python3.6 setup.py install
+> python setup.py install
 
 
 
