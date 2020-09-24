@@ -1,12 +1,15 @@
 # Installation instructions
 
-> git clone git@github.com:gummiks/crosscorr.git
+```
+git clone git@github.com:gummiks/crosscorr.git
+cd crosscorr
+python setup.py install
+```
 
-> python setup.py install
+You might need to try and do 'sudo python setup.py install'
 
 
-
-# More detailed instllation instructions
+# More detailed installation instructions
 Normally, this wouldn't be needed, as the setup.py should take care of the installation, but listing these steps just in case.
 
 ## Fortran installation instructions
