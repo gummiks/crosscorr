@@ -1,3 +1,6 @@
+# crosscorr
+Easily calculate Cross Correlation Functions (CCFs) from HPF data. Uses Fortran for speed.
+
 # Installation instructions
 
 ```
