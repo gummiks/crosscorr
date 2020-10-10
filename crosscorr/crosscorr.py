@@ -78,7 +78,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
         try:
             for k in range(N):
                 #print v[k]
-                ccf[k] = CCF_pix.ccf(mask_l[II],
+                ccf[k] = _CCF_pix.ccf(mask_l[II],
                                      mask_h[II],
                                      w,
                                      f,
