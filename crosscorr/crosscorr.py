@@ -12,9 +12,6 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     """
     Calculate a weighted binary mask CCF.
 
-    """
-    Calculate a weighted binary mask CCF.
-
     INPUT:
         w - array of wavelengths for one order
         f - array of fluxes for one order
