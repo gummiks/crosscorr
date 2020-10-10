@@ -1,10 +1,27 @@
-# Fortran installation instructions
+# crosscorr
+Easily calculate Cross Correlation Functions (CCFs) from HPF data. Uses Fortran for speed.
+
+# Installation instructions
+
+```
+git clone git@github.com:gummiks/crosscorr.git
+cd crosscorr
+python setup.py install
+```
+
+You might need to try and do 'sudo python setup.py install'
+
+
+# More detailed installation instructions
+Normally, this wouldn't be needed, as the setup.py should take care of the installation, but listing these steps just in case.
+
+## Fortran installation instructions
 
 You will need to compile two fortran files.
 
 To install run the following commands:
 
-## Linux
+### Linux
 
 > f2py -c -m CCF_1d CCF_1d.f
 

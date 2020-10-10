@@ -1,9 +1,17 @@
-import CCF_1d, CCF_3d, CCF_pix
+#from .CCF_1d import CCF_1d
+#from .CCF_3d import CCF_3d
+#import CCF_1d, CCF_3d
+#from . import CCF_1d, CCF_3d
+# We don't need to do relative import as these are extensions as part of setup.py
+import _CCF_1d, _CCF_3d, _CCF_pix
 import numpy as np
 import matplotlib.pyplot as plt
 
 def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
           wavel_clip_edges=0.,method='doppler_3d',verbose=True):
+    """
+    Calculate a weighted binary mask CCF.
+
     """
     Calculate a weighted binary mask CCF.
 
@@ -41,14 +49,14 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     if method=='doppler_3d':
         try:
             for k in range(N):
-                ccf[k] = CCF_3d.ccf(mask_l[II],
-                                    mask_h[II],
+                ccf[k] = _CCF_3d.ccf(mask_l[II], 
+                                    mask_h[II], 
                                     w,
                                     f,
                                     mask_w[II],
                                     sn, # Additional SNR scaling factor, just setting to 1
                                     v[k],
-                                berv,
+                                    berv,
                                     0.) # Additional velocity that is not needed
             return ccf
         except Exception as e:
@@ -57,8 +65,8 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     elif method=='doppler_1d':
         try:
             for k in range(N):
-                ccf[k] = CCF_1d.ccf(mask_l[II],
-                                    mask_h[II],
+                ccf[k] = _CCF_1d.ccf(mask_l[II], 
+                                    mask_h[II], 
                                     w,
                                     f,
                                     mask_w[II],
@@ -128,3 +136,4 @@ def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],pl
         ax.set_ylabel('Normalized flux')
         ax.set_title('CCF')
     return ccf_array
+
