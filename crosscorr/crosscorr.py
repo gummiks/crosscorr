@@ -3,25 +3,25 @@
 #import CCF_1d, CCF_3d
 #from . import CCF_1d, CCF_3d
 # We don't need to do relative import as these are extensions as part of setup.py
-import _CCF_1d, _CCF_3d
+import _CCF_1d, _CCF_3d, _CCF_pix
 import numpy as np
 import matplotlib.pyplot as plt
 
 def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
-                  wavel_clip_edges=0.,doppler_3d=True,verbose=True):
+          wavel_clip_edges=0.,method='doppler_3d',verbose=True):
     """
     Calculate a weighted binary mask CCF.
 
     INPUT:
         w - array of wavelengths for one order
         f - array of fluxes for one order
-        v - velocity grid to loop over in km/s
+        v - velocity grid to loop over in km/s (OR grid in pixels)
         mask_l - left edges of binary mask
         mask_h - right edges of binary mask
         mask_w - weight of binary mask
         berv - barycentric velocity in km/s
         wavel_clip_edges - do not use lines that are this close to the edge of the order
-        doppler_3d - use 3d doppler shifting formula ? If false, default to 1D formula
+        method - 'doppler_1d' or 'doppler_3d' adopted from Gummi's code for performing CCF in redshift space, 'pixel' for CCF in pixel space
         verbose: print diagnostics
 
     OUTPUT:
@@ -31,6 +31,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
         - Uses the CCF fortran algorithm in CERES. Super fast.
         - Note that that algorithm uses the 1d Doppler EQ.
         - wavel_clip_edges # THE LAST ARGUMENT CHANGES GJ 905 FROM -75.8 to -77.8km/s
+        - RCT updated June 21, 2019: modified to enable CCF in pixel space
     """
     N = len(v)
     ccf = np.zeros(N)
@@ -42,7 +43,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
     # This is an additional scaling parameter in the CERES CCF generation, we don't need that so set to 1
     sn = np.ones(len(f))
     
-    if doppler_3d:
+    if method=='doppler_3d':
         try:
             for k in range(N):
                 ccf[k] = _CCF_3d.ccf(mask_l[II], 
@@ -58,7 +59,7 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
         except Exception as e:
             if verbose: print(e)
             return np.zeros(len(v))
-    else:
+    elif method=='doppler_1d':
         try:
             for k in range(N):
                 ccf[k] = _CCF_1d.ccf(mask_l[II], 
@@ -73,7 +74,25 @@ def calculate_ccf(w,f,v,mask_l,mask_h,mask_w,berv=0.,
         except Exception as e:
             if verbose: print(e)
             return np.zeros(len(v))
-
+    elif method=='pixel':
+        try:
+            for k in range(N):
+                #print v[k]
+                ccf[k] = _CCF_pix.ccf(mask_l[II],
+                                     mask_h[II],
+                                     w,
+                                     f,
+                                     mask_w[II],
+                                     sn,
+                                     v[k]-berv,
+                                     0.,
+                                     0.)
+            return ccf
+        except Exception as e:
+            if verbose: print(e)
+            return np.zeros(len(v))
+    else:
+        raise StandardError()
 
 def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],plot=False,ax=None,color=None,subslice=None):
     """
@@ -102,13 +121,13 @@ def calculate_ccf_for_hpf_orders(w,f,v,M,berv,orders=[3,4,5,6,14,15,16,17,18],pl
     ccf_array = np.zeros((num_hpf_orders+1,len(v)))
     for o in orders:
         ccf_array[o] = calculate_ccf(w[o],f[o],v,M.wi,M.wf,M.weight,berv)
-        if plot: 
+        if plot:
             if color is None:
                 ax.plot(v,ccf_array[o]/np.nanmax(ccf_array[o]),label="o={}".format(o))
             else:
                 ax.plot(v,ccf_array[o]/np.nanmax(ccf_array[o]),label="o={}".format(o),color=color)
     ccf_array[num_hpf_orders] = np.nansum(ccf_array[orders],axis=0)
-    if plot: 
+    if plot:
         ax.legend(loc="lower right",fontsize=10)
         ax.set_xlabel('v [km/s]')
         ax.set_ylabel('Normalized flux')

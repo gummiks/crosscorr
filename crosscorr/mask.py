@@ -17,28 +17,27 @@ class Mask:
     def __init__(self,filename=G2MASK,constant_v=True,disp=2.,use_airtovac=False):
         """
         A simple mask class.
-
         Reads in a .mas file that has the following columns:
          left    right     weights
         
-	INPUT:
-	    filename - mask filename
+    INPUT:
+        filename - mask filename
             constant_v - use a constant velocity width (RECOMMENDED)
             dispersion - half-width of the constant velocity width in km/s
             use_airtovac: convert from airwavelength to vacuum. 
                           Only for HARPS, as the HPF masks are in vacuum 
                           wavelength already.
 
-	OUTPUT:
-	    No output, main parameters of the object are:
+    OUTPUT:
+        No output, main parameters of the object are:
             self.wi - left-edge wavelengths of mask
             self.wf - right-edge wavelegnths of mask
             self.weight - mask weights
 
-	EXAMPLE:
+    EXAMPLE:
             M = mask.Mask(filename="../data/hpf/masks/gj699.mas",
-			  disp=2.,constant_v=True)
-	    
+              disp=2.,constant_v=True)
+        
         """
         print("AIRTOVAC (TRUE for HARPS, FALSE TRUE HPF): ",use_airtovac)
         self.wi, self.wf, self.weight = np.loadtxt(filename,unpack=True,dtype=np.float64)
