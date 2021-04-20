@@ -19,14 +19,17 @@ In case the fortran code does not build, run the following commands:
 
 ### Linux
 
-> f2py -c -m CCF_1d CCF_1d.f
-> f2py -c -m CCF_3d CCF_3d.f
-> f2py -c -m CCF_pix CCF_pix.f
-
+```
+f2py -c -m CCF_1d CCF_1d.f
+f2py -c -m CCF_3d CCF_3d.f
+f2py -c -m CCF_pix CCF_pix.f
+```
 
 ## Mac
 On mac you might need to try sudo (verified that this works on my mac).
 
-> sudo f2py -c -m CCF_1d CCF_1d.f
-> sudo f2py -c -m CCF_3d CCF_3d.f
-> sudo f2py -c -m CCF_pix CCF_pix.f
+```
+sudo f2py -c -m CCF_1d CCF_1d.f
+sudo f2py -c -m CCF_3d CCF_3d.f
+sudo f2py -c -m CCF_pix CCF_pix.f
+```
