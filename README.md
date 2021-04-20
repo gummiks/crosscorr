@@ -1,32 +1,26 @@
 # crosscorr
-Easily calculate Cross Correlation Functions (CCFs) from HPF data. Uses Fortran for speed.
+Easily calculate Cross Correlation Functions (CCFs) from HPF data. Uses Fortran for speed. The fortran code used here is originally derived from <a href='https://github.com/rabrahm/ceres'>ceres</a>.
 
 # Installation instructions
 
-```
 git clone git@github.com:gummiks/crosscorr.git
 cd crosscorr
 python setup.py install
 ```
-
+This should build the fortran code as well.
 You might need to try and do 'sudo python setup.py install'
 
-
 # More detailed installation instructions
-Normally, this wouldn't be needed, as the setup.py should take care of the installation, but listing these steps just in case.
+Normally the setup.py should fully take care of the installation (including the fotran compilation), but listing instructions to build the fotran code in python just in case.
 
 ## Fortran installation instructions
 
-You will need to compile two fortran files.
-
-To install run the following commands:
+In case the fortran code does not build, run the following commands:
 
 ### Linux
 
 > f2py -c -m CCF_1d CCF_1d.f
-
 > f2py -c -m CCF_3d CCF_3d.f
-
 > f2py -c -m CCF_pix CCF_pix.f
 
 
@@ -34,10 +28,5 @@ To install run the following commands:
 On mac you might need to try sudo (verified that this works on my mac).
 
 > sudo f2py -c -m CCF_1d CCF_1d.f
-
 > sudo f2py -c -m CCF_3d CCF_3d.f
-
 > sudo f2py -c -m CCF_pix CCF_pix.f
-
-## Then, install as a normal package
-> pip install ccf/
