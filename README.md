@@ -1,5 +1,5 @@
 # crosscorr
-Easily calculate Cross Correlation Functions (CCFs) from HPF data. Uses Fortran for speed. The fortran code used here is originally derived from <a href='https://github.com/rabrahm/ceres'>ceres</a>.
+Easily calculate Cross Correlation Functions (CCFs) from different high resolution spectra. Includes masks from HARPS, ESPRESSO, and HPF. Uses Fortran for speed. The fortran code used here is originally derived from <a href='https://github.com/rabrahm/ceres'>ceres</a>. The notebooks/ directory shows an example on how to calculate CCFs with HPF spectra.
 
 # Installation instructions
 To install, run the following commands:
