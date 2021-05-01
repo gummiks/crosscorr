@@ -21,7 +21,7 @@ G2_5000_6300MASK = os.path.join(HARPSMASKDIR,"G2_5000_6300.mas")
 HPFGJ699MASK = os.path.join(HPFMASKDIR,'gj699_combined_stellarframe.mas')
 
 class Mask:
-    def __init__(self,filename=G2MASK,constant_v=True,disp=2.,use_airtovac=False,espresso=False):
+    def __init__(self,filename=G2MASK,constant_v=True,disp=2.,use_airtovac=False,espresso=False,verbose=False):
         """
         A simple mask class.
         Reads in a .mas file that has the following columns:
@@ -46,7 +46,8 @@ class Mask:
               disp=2.,constant_v=True)
         
         """
-        print("AIRTOVAC (TRUE for HARPS, FALSE TRUE HPF): ",use_airtovac)
+        if verbose:
+            print("AIRTOVAC (TRUE for HARPS, FALSE TRUE HPF): ",use_airtovac)
         if espresso is False:
             self.wi, self.wf, self.weight = np.loadtxt(filename,unpack=True,dtype=np.float64)
         else:
