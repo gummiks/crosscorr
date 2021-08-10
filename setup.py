@@ -29,5 +29,6 @@ setup(name='crosscorr',
       ext_modules=[CCF_1d, CCF_3d, CCF_pix],
       # NOTE: Manifest.in doees not seem to work with numpy.distutils.core
       data_files=[('crosscorr/data/harps/masks',['crosscorr/data/harps/masks/G2.mas']),
-                  ('crosscorr/data/hpf/masks',['crosscorr/data/hpf/masks/gj699_combined_stellarframe.mas'])],
+                  ('crosscorr/data/hpf/masks',['crosscorr/data/hpf/masks/gj699_combined_stellarframe.mas']),
+                  ('crosscorr/data/hpf/masks',['crosscorr/data/hpf/masks/specmatch_mask.mas'])],
       )
