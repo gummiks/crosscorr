@@ -19,6 +19,7 @@ ESPRESSO_M3MASK = os.path.join(ESPRESSOMASKDIR,"ESPRESSO_M3.fits")
 G2_6300MASK = os.path.join(HARPSMASKDIR,"G2_6300.mas")
 G2_5000_6300MASK = os.path.join(HARPSMASKDIR,"G2_5000_6300.mas")
 HPFGJ699MASK = os.path.join(HPFMASKDIR,'gj699_combined_stellarframe.mas')
+HPFSPECMATCHMASK = os.path.join(HPFMASKDIR,'specmatch_mask.mas')
 
 class Mask:
     def __init__(self,filename=G2MASK,constant_v=True,disp=2.,use_airtovac=False,espresso=False,verbose=False):
